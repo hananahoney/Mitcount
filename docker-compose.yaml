@@ -1,19 +1,28 @@
 version: '3'
 services:
-  mysql:
-    image: mysql:latest
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 1234
       MYSQL_DATABASE: mbilal
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 1234
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - 3306:3306
-
-  mqtt-producer:
-     build: .
-     environment:
-      mysql_url: mysql
-     ports:
       - 5000:5000
-     depends_on:
-      - mysql
+    volumes:
+      - .:/app
+    depends_on: 
+      - db
+    environment:
+      FLASK_ENV : development
+      mysql_url: db
+
+volumes:
+  db_data: {}

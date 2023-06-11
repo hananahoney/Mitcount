@@ -20,4 +20,4 @@ RUN pip3 install -r requirements.txt
 # Copy the rest of the application
 COPY . .
 
-CMD ["python3","appcopy.py"]
+CMD ["python","appcopy.py"]
