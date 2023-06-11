@@ -16,6 +16,8 @@ RUN apt-get update && apt-get install -y \
     libxrender-dev \
  && rm -rf /var/lib/apt/lists/*
 
+ RUN apt update && apt install -y libsm6 libxext6 ffmpeg libfontconfig1 libxrender1 libgl1-mesa-glx
+
 # Upgrade pip
 RUN pip install --upgrade pip
 
