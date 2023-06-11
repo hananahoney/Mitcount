@@ -8,8 +8,6 @@ services:
       MYSQL_DATABASE: mbilal
     ports:
       - 3306:3306
-    volumes:
-      - ./mysqldb/db.sql:/db.sql
 
   mqtt-producer:
      build: .
