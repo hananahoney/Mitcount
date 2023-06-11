@@ -3,6 +3,8 @@ FROM python:3.10
 
 WORKDIR /app
 
+RUN apt-get update && apt-get install -y libgl1-mesa-glx
+
 # Update system packages and install build-essential, default-libmysqlclient-dev, and python3-dev
 RUN apt-get update && apt-get install -y \
     build-essential \
