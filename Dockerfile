@@ -6,10 +6,10 @@ WORKDIR /app
 # Update system packages and install necessary packages
 RUN apt-get update && apt-get install -y \
     build-essential \
-    libgl1-mesa-glx \
     libmysqlclient-dev \
     python3-dev \
     libgl1-mesa-dev \
+    libgl1-mesa-glx \
  && rm -rf /var/lib/apt/lists/*
 
 # Upgrade pip
