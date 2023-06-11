@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, flash,redirect,session,url_for, send_from_directory
 import mysql.connector
-import cv2 as cv
+# import cv2 as cv
 import keras_ocr
 import re
 import os
@@ -232,12 +232,12 @@ def handle_form_submission():
             
         
             image1 = "2.jpg"
-            img = cv.imread(image1)
+            img = cv2.imread(image1)
         
-            img = cv.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     
-            ret, thresh1 = cv.threshold(img,50, 200, cv2.THRESH_BINARY)
-            source = cv.GaussianBlur(thresh1, (7, 7), 0)
+            ret, thresh1 = cv2.threshold(img,50, 200, cv2.THRESH_BINARY)
+            source = cv2.GaussianBlur(thresh1, (7, 7), 0)
 
             mk=skimage.segmentation.mark_boundaries(img, source, color=(1, 1, 0), outline_color=None, mode='outer', background_label=0)
 
