@@ -15,5 +15,7 @@ services:
      build: .
      environment:
       mysql_url: mysql
+    ports:
+      - 5000:5000
      depends_on:
       - mysql
