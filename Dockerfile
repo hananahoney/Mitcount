@@ -15,6 +15,7 @@ RUN pip install --upgrade pip
 
 # Copy over and install the pip requirements
 COPY require.txt requirements.txt
+RUN pip install opencv-python-headless
 RUN pip3 install -r requirements.txt
 
 # Copy the rest of the application
