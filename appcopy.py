@@ -77,7 +77,7 @@ cursor = conn.cursor()
 personid = 0
 @app.route('/')
 def index():
-    return render_template('mylogin.html')
+    return render_template('index.html')
 
 
 
