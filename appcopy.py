@@ -9,7 +9,7 @@ import os
 # import torch
 # import torchvision.transforms as transforms
 # import torchvision.models as models
-import cv2
+# import cv2
 from PIL import Image
 from transformers import *
 from ultralytics import YOLO
@@ -211,56 +211,56 @@ def handle_form_submission():
         machine = request.form.get('machine')
 
 
-        if machine==('A'):
         
-            results=model.predict(
-            source="2.jpg",
-                conf=0.25,
-                        save=True, save_txt=True
-                    )
+        
+        results=model.predict(
+        source="2.jpg",
+            conf=0.25,
+                    save=True, save_txt=True
+                )
 
             
-            img_path = fr"D:\fypmodels\copy_mitwebb\runs\detect\predict\2.jpg"
-            print("________________________")
-            print(results)
+        img_path = fr"D:\fypmodels\copy_mitwebb\runs\detect\predict\2.jpg"
+        print("________________________")
+        print(results)
             # Load the image using cv.imread()
-            img = Image.open(img_path)
+        img = Image.open(img_path)
         
         
-        elif machine==('H'):
-            print("You are a senior citizen.") 
+        # elif machine==('H'):
+        #     print("You are a senior citizen.") 
             
         
-            image1 = "2.jpg"
-            img = cv2.imread(image1)
+        #     image1 = "2.jpg"
+        #     img = cv2.imread(image1)
         
-            img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        #     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     
-            ret, thresh1 = cv2.threshold(img,50, 200, cv2.THRESH_BINARY)
-            source = cv2.GaussianBlur(thresh1, (7, 7), 0)
+        #     ret, thresh1 = cv2.threshold(img,50, 200, cv2.THRESH_BINARY)
+        #     source = cv2.GaussianBlur(thresh1, (7, 7), 0)
 
-            mk=skimage.segmentation.mark_boundaries(img, source, color=(1, 1, 0), outline_color=None, mode='outer', background_label=0)
+        #     mk=skimage.segmentation.mark_boundaries(img, source, color=(1, 1, 0), outline_color=None, mode='outer', background_label=0)
 
-            mpimg.imsave('3.jpg' ,mk)
-
-
+        #     mpimg.imsave('3.jpg' ,mk)
 
 
 
 
 
-            results=model2.predict(
-            source="3.jpg",
-                conf=0.25,
-                        save=True, save_txt=True
-                    )
+
+
+            # results=model2.predict(
+            # source="3.jpg",
+            #     conf=0.25,
+            #             save=True, save_txt=True
+            #         )
 
             
-            img_path = fr"D:\fypmodels\copy_mitwebb\runs\detect\predict\3.jpg"
-            print("________________________")
-            print(results)
-            # Load the image using cv.imread()
-            img = Image.open(img_path)
+            # img_path = fr"D:\fypmodels\copy_mitwebb\runs\detect\predict\3.jpg"
+            # print("________________________")
+            # print(results)
+            # # Load the image using cv.imread()
+            # img = Image.open(img_path)
 
             # myimage1 = "3.jpg"
 
@@ -270,8 +270,7 @@ def handle_form_submission():
             # # Display the image
             # img.show()
 
-        else:
-            print("no machine found.")    
+            
 
 
 
