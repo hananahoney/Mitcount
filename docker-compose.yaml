@@ -8,8 +8,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 1234
       MYSQL_DATABASE: mbilal
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 1234
   app:
     build: 
       context: .
