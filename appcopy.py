@@ -1,14 +1,14 @@
 from flask import Flask, render_template, request, flash,redirect,session,url_for, send_from_directory
 import mysql.connector
 # import cv2 as cv
-import keras_ocr
-import re
+# import keras_ocr
+# import re
 import os
-import numpy as np
-import tensorflow as tf
-import torch
-import torchvision.transforms as transforms
-import torchvision.models as models
+# import numpy as np
+# import tensorflow as tf
+# import torch
+# import torchvision.transforms as transforms
+# import torchvision.models as models
 import cv2
 from PIL import Image
 from transformers import *
