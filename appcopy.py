@@ -67,7 +67,8 @@ model2 = YOLO('yolov8n.pt')
 # MySQL configuration
 eemail = 'hassanrana10@gmail.com'
 
-mysql_host = os.getenv('mysql_url')
+# mysql_host = os.getenv('mysql_url')
+mysql_host='34.16.135.174'
 mysql_user = 'root'
 mysql_password = '1234'
 mysql_db = 'mbilal'
