@@ -3,6 +3,7 @@ import mysql.connector
 import cv2 as cv
 import keras_ocr
 import re
+import os
 import numpy as np
 import tensorflow as tf
 import torch
@@ -66,9 +67,9 @@ model2 = YOLO('yolov8n.pt')
 # MySQL configuration
 eemail = 'hassanrana10@gmail.com'
 
-mysql_host = 'localhost'
+mysql_host = os.getenv('mysql_url')
 mysql_user = 'root'
-mysql_password = ''
+mysql_password = '1234'
 mysql_db = 'mbilal'
 conn = mysql.connector.connect(host=mysql_host, user=mysql_user, password=mysql_password, database=mysql_db)
 cursor = conn.cursor()
