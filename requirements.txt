@@ -5,3 +5,6 @@ Pillow==9.5.0
 scikit-image==0.20.0
 matplotlib==3.7.1
 ultralytics
+torch 
+tensorflow 
+flax
