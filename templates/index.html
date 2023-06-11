@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+    <style>
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #e10176;
+        padding: 2px;
+      }
+
+      .logo a {
+        color: white;
+        text-decoration: none;
+      }
+
+      .logo h4 {
+        margin-left: 40px;
+        font-size: 28px;
+      }
+
+      .menu {
+        list-style: none;
+        display: flex;
+        margin-top: 10px;
+      }
+
+      .menu li {
+        margin-right: 20px;
+      }
+
+      .menu li a {
+        text-decoration: none;
+        color: white;
+        font-weight: 400;
+        font-size: 18px;
+      }
+
+      .menu li a:hover {
+        color: #e10176;
+        background-color: white;
+        border-radius: 5px;
+        padding: 8px 10px;
+        text-decoration: none;
+      }
+
+      .about-section {
+        display: flex;
+        align-items: center;
+        padding-top: 0px;
+        padding-right: 0px;
+        padding-left: 50px;
+        height: 300px;
+        background-color: #f1f1f1;
+        margin-top: 100px;
+      }
+
+      .about-section .content {
+        flex: 1;
+        padding-right: 50px;
+      }
+
+      .about-section .content h1 {
+        font-size: 36px;
+        margin-bottom: 20px;
+      }
+
+      .about-section .content p {
+        font-size: 18px;
+        line-height: 1.5;
+        margin-bottom: 20px;
+      }
+
+      .about-section .logo {
+        flex: 1;
+        text-align: center;
+      }
+
+      .about-section .logo img {
+        width: 100%;
+        height: 300px;
+      }
+
+      .flash-message {
+        display: inline-block;
+        padding: 30px 20px;
+        margin-left: 250px;
+        margin-top: 30px;
+        border: 2px solid black;
+        border-radius: 8px;
+        color: #e10176;
+        font-size: 24px;
+        cursor: pointer;
+      }
+      .custom-file-label {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+    </style>
+  </head>
+
+  <body>
+    <nav>
+      <div class="logo">
+        <a href="#">
+          <h4>MitCount</h4>
+        </a>
+      </div>
+
+      <ul class="menu">
+        <li><a href="#">Home</a></li>
+        <li><a href="{{ url_for('Records') }}">Records</a></li>
+        <li><a href="#">About</a></li>
+        
+        <li><a href="{{url_for('login')}}">Logout</a></li>
+      </ul>
+    </nav>
+   
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <h2 class="text-center mb-3" style="color: #e10176; margin-top: 40px">
+            Patient Form
+          </h2>
+
+          <form
+            method="POST"
+            action="/submit-form"
+            enctype="multipart/form-data"
+          >
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input type="text" class="form-control" id="name" name="name" required/>
+            </div>
+
+            
+
+            <div class="form-group">
+              <label for="id">ID:</label>
+              <input
+                type="number"
+                class="form-control"
+                id="id"
+                name="id"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="image">Image:</label>
+              <div class="custom-file">
+                <input
+                  type="file"
+                  class="custom-file-input"
+                  id="image"
+                  name="file"
+                  accept="image/jpeg"
+                />
+                <label class="custom-file-label" for="image">Choose file</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="machine">Choose Image type: </label>
+              <label>
+                <input type="radio" name="machine" value="A" required/>
+                A
+              </label>
+              <label>
+                <input type="radio" name="machine" value="H" required/>
+                H
+              </label>
+            </div>
+            
+            <div class="form-group">
+              <button type="submit" class="btn btn-danger">Submit</button>
+            </div>
+          </form>
+        </div>
+
+        {% if uploaded_image %}
+        <div class="col-md-4">
+          <img
+            id="preview"
+            src="{{uploaded_image}}"
+            alt="upload image"
+            style="
+              margin-top: 60px;
+              margin-left: 90px;
+              max-width: 120%;
+              height: 60%;
+            "
+          />
+        </div>
+        {% else %}
+        <div class="col-md-4">
+          <img
+            id="preview"
+            src="#"
+            alt="Uploaded Image"
+            style="
+              display: none;
+              margin-top: 60px;
+              margin-left: 90px;
+              max-width: 120%;
+              height: 60%;
+            "
+          />
+        </div>
+        {% endif %} {% if resultant_image %}
+        <div class="col-md-4">
+          <img
+            id="preview2"
+            src="{{resultant_image}}"
+            alt="Resultant Image"
+            style="
+              margin-top: 60px;
+              margin-left: 90px;
+              max-width: 120%;
+              height: 60%;
+            "
+          />
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- {% if result != 0 %}
+  <h1 class="flash-message">Result = {{result}} </h1>
+  {% endif %} -->
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        bsCustomFileInput.init();
+      });
+
+      // Preview image after selecting
+      $("#image").on("change", function () {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          $("#preview").attr("src", e.target.result).show();
+          $("#preview2").attr("src", e.target.result).remove();
+        };
+
+        reader.readAsDataURL(this.files[0]);
+      });
+
+    </script>
+    <section class="about-section">
+      <div class="content">
+        <h1>About Us</h1>
+        <p>
+          Welcome to our webpage, where we specialize in the detection of mitotic cells in histopathological images.
+          Our advanced algorithms and deep learning techniques accurately identify mitotic cells,
+           making it easier for researchers and pathologists to analyze data. Our interface allows
+           easy upload of images and quick results display. We take pride in providing reliable results
+          and a database to store them. Our webpage offers a powerful tool for mitotic cell detection needs.
+        </p>
+      </div>
+      <div class="logo">
+        <img
+          src="https://www.pbmchealth.org/application/files/4015/6711/6471/stop_cancer.jpg"
+          alt="Company Logo"
+        />
+      </div>
+    </section>
+  </body>
+</html>

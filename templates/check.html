@@ -1,0 +1,63 @@
+<input type="text" id="search" placeholder="Search...">
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Results</th>
+      <th>Uploaded Image Picture</th>
+      <th>Uploaded Image Picture</th>
+    </tr>
+  </thead>
+  <tbody id="table-body">
+    <tr>
+      <td>1</td>
+      <td>John</td>
+      <td>80%</td>
+      <td><img src="image1.jpg" alt="image"></td>
+      <td><img src="result1.jpg" alt="image"></td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Jane</td>
+      <td>90%</td>
+      <td><img src="image2.jpg" alt="image"></td>
+      <td><img src="result2.jpg" alt="image"></td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Bob</td>
+      <td>70%</td>
+      <td><img src="image3.jpg" alt="image"></td>
+      <td><img src="result3.jpg" alt="image"></td>
+    </tr>
+  </tbody>
+</table>
+
+<script>
+  // Get the search input element
+  const searchInput = document.getElementById("search");
+
+  // Get the table body element
+  const tableBody = document.getElementById("table-body");
+
+  // Add an event listener to the search input
+  searchInput.addEventListener("keyup", () => {
+    // Get the search query from the input value
+    const searchQuery = searchInput.value.toLowerCase();
+
+    // Get all table rows in the table body
+    const tableRows = tableBody.querySelectorAll("tr");
+
+    // Loop through each row and check if it matches the search query
+    tableRows.forEach((row) => {
+      const rowText = row.textContent.toLowerCase();
+      if (rowText.includes(searchQuery)) {
+        row.style.display = "";
+      } else {
+        row.style.display = "none";
+      }
+    });
+  });
+</script>

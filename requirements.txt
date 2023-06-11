@@ -1,0 +1,11 @@
+Flask
+mysql
+opencv-python
+numpy
+tensorflow
+Pillow
+transformers
+ultralytics
+hashlib>=3.0.0
+scikit-image
+matplotlib

@@ -1,0 +1,80 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #e10176;
+    padding: 2px;
+}
+
+.logo a {
+    color: white;
+    text-decoration: none;
+}
+
+.logo h4 {
+    margin-left: 40px;
+    font-size: 28px;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    margin-top: 10px;
+}
+
+.menu li {
+    margin-right: 20px;
+}
+
+.menu li a {
+    text-decoration: none;
+    color: white;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.menu li a:hover {
+    color: #e10176;
+    background-color: white;
+    border-radius: 5px;
+    padding: 8px 10px;
+}
+
+.Upload{
+    border-radius: 50px;
+    width: 200px;
+    background-color: #f506ad;
+    color: white;
+    height: fit-content;
+    font-size: large;
+align-items: center;
+margin-top: 200px;
+margin-right: 200px;
+float: right;
+border-color: white;
+
+}
+#image{
+    display: none;
+}
+img{
+    margin-top: 70px;
+    height: 500px;
+    width: 500px;
+    
+}
+
+.label{
+   
+    float: right;
+text-align: center;
+    margin-top: 70px;
+    border-radius: 70px;
+    background-color: palevioletred;
+    margin-right: 100px;
+}
+#formFileLg{
+    
+    padding-left: 160px;
+    
+}

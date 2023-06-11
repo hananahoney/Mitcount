@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Records</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
+    <style>
+ nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #e10176;
+        padding: 2px;
+      }
+      
+      .logo a {
+        
+        color: white;
+        text-decoration: none;
+      }
+      .logo h4{
+        margin-left: 40px;
+        font-size: 28px;
+      }
+      .menu {
+        list-style: none;
+        display: flex;
+        margin-top: 10px;
+      }
+      
+      .menu li {
+        margin-right: 20px;
+      }
+      
+      .menu li a {
+        text-decoration: none;
+        color: white;
+        font-weight: 400;
+        font-size: 18px;
+      }
+      
+      .menu li a:hover {
+        color: #e10176;
+        background-color: white;
+        border-radius: 5px;
+        padding: 8px 10px;
+        text-decoration: none;
+
+      }
+      table {
+			border-collapse: collapse;
+			width: 100%;
+		}
+		th, td {
+			text-align: left;
+			padding: 8px;
+		}
+		tr:nth-child(even) {
+			background-color: #f2f2f2;
+		}
+		th {
+			background-color: #4CAF50;
+			color: white;
+		}
+		img {
+			max-width: 200px;
+			max-height: 200px;
+			object-fit: cover;
+		}
+
+
+    .selected-image {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    max-width: 90%;
+    max-height: 90%;
+    overflow: auto;
+  }
+  .blur {
+    filter: blur(1px);
+  }
+
+  #search {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 30px;
+  width: 1200px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  background-color: #f2f2f2;
+}
+
+/* Style the placeholder text */
+#search::placeholder {
+  color: #999;
+}
+
+/* Style the search input on focus */
+#search:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  border: 1px solid rgba(81, 203, 238, 1);
+}
+
+
+    </style>
+</head>
+<!-- <body>
+    <nav>
+        <div class="logo">
+          <a href="#"><h4>MitCount</h4></a>
+        </div>
+        
+    <ul class="menu">
+        <li><a href="{{ url_for('Home') }}">Home</a></li>
+        <li><a href="#">Records</a></li>
+        <li><a href="#">About</a></li>
+        
+        <li><a href="{{url_for('login')}}">Logout</a></li>
+      </ul>
+    </nav>
+
+    <input type="text" id="search" placeholder="Search...">
+
+    <table>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				
+				<th>Uploaded Image Picture</th>
+				<th>Resultant Image Picture</th>
+        <th>Date/Time</th>
+			</tr>
+		</thead>
+		<tbody>
+      {% for value in data %}
+      <tr>
+				<td class="personid">{{value[1]}}</td>
+				<td>{{value[2]}}</td>
+				
+        <td><img src="{{ url_for('static', filename='upload_images/' + value[3]) }}" alt="image"/></td>
+        <td><img src="{{ url_for('static', filename='results_images/' + value[4]) }}" alt="image"/></td>        
+        <td>{{value[6]}}</td>
+        
+			</tr>
+      
+      {% endfor %}
+    </tbody>
+	</table>
+  <script>
+    var searchInput = document.getElementById('search');
+    var tableRows = document.getElementsByTagName('tr');
+    searchInput.addEventListener('keyup', function() {
+        var searchQuery = this.value.toLowerCase();
+        for (var i = 1; i < tableRows.length; i++) {
+            var row = tableRows[i];
+            var rowData = row.textContent.toLowerCase();
+            if (rowData.indexOf(searchQuery) === -1) {
+                row.style.display = 'none';
+            } else {
+                row.style.display = '';
+            }
+        }
+    });
+   
+</script>
+  
+
+</body> -->
+
+<body>
+  <nav>
+      <div class="logo">
+          <a href="#"><h4>MitCount</h4></a>
+      </div>
+
+      <ul class="menu">
+          <li><a href="{{ url_for('Home') }}">Home</a></li>
+          <li><a href="{{ url_for('Records') }}">Records</a></li>
+          <li><a href="#">About</a></li>
+
+          <li><a href="{{url_for('login')}}">Logout</a></li>
+      </ul>
+  </nav>
+
+  <input type="text" id="search" placeholder="Search...">
+
+  <table id="report-table">
+      <thead>
+          <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <!-- <th>Results</th> -->
+              <th>Uploaded Image Picture</th>
+              <th>Resultant Image Picture</th>
+              <th>MitCount</th> 
+              <th>Img Type</th>
+              <th>Diagnostics</th>
+              <th>Date/Time</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for value in data %}
+          <tr>
+              <td class="personid">{{value[1]}}</td>
+              <td>{{value[2]}}</td>
+              <!-- <td>80%</td> -->
+              <td><img src="{{ url_for('static', filename='upload_images/' + value[3]) }}" alt="image"/></td>
+              <td><img src="{{ url_for('static', filename='results_images/' + value[4]) }}" alt="image"/></td>
+              <td>{{value[5]}}</td>
+              <td>{{value[6]}}</td>
+              <td>{{value[7]}}</td>
+              <td>{{value[8]}}</td>
+
+          </tr>
+
+          {% endfor %}
+      </tbody>
+  </table>
+
+  <button id="generate-report">Download Report</button>
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script> 
+  
+
+<script>
+  var searchInput = document.getElementById('search');
+  var tableRows = document.getElementsByTagName('tr');
+  let button = document.getElementById('generate-report');
+  button.addEventListener('click',exportPDF)
+  var specialElementHandler = {
+    '.no-export':function(element,renderer){
+      return true;
+    }
+  }
+  function exportPDF() {
+  var doc = new jsPDF('p', 'pt', 'a4');
+  var table = document.getElementById('report-table');
+  var rows = table.rows;
+
+  var cellStyles = {
+    lineWidth: 0.5,
+    lineColor: [0, 0, 0],
+    fontSize: 10,
+  };
+
+  var tableWidth = 70;
+  var tableHeight = 100;
+
+  var x = 20;
+  var y = 10;
+
+  // Get the heading row
+  var headingRow = rows[0];
+var headingCells = headingRow.cells;
+
+var filteredHeadingCells = Array.from(headingCells).filter(function (_, index) {
+  return index !== 2 && index !== 3;
+});
+
+console.log(filteredHeadingCells);
+  // Draw table heading row
+  for (var j = 0; j < filteredHeadingCells.length; j++) {
+    var headingCell = filteredHeadingCells[j];
+    var text = headingCell.innerText;
+    doc.setDrawColor(cellStyles.lineColor[0], cellStyles.lineColor[1], cellStyles.lineColor[2]);
+    doc.setLineWidth(cellStyles.lineWidth);
+    doc.setFontSize(cellStyles.fontSize);
+    doc.rect(x, y, tableWidth, tableHeight, 'S');
+    doc.text(x + 5, y + 15, doc.splitTextToSize(text, tableWidth - 10));
+    x += tableWidth;
+  }
+
+  y += tableHeight;
+
+  // Draw table body rows
+  for (var i = 1; i < rows.length; i++) {
+  var row = rows[i];
+  var cells = row.cells;
+  console.log(cells);
+  x = 20;
+
+  var filteredCells = Array.from(cells).filter(function(cell) {
+    var text = cell.innerText.trim();
+    return text !== '';
+  });
+
+  for (var j = 0; j < filteredCells.length; j++) {
+    var cell = filteredCells[j];
+    var text = cell.innerText;
+    doc.setDrawColor(cellStyles.lineColor[0], cellStyles.lineColor[1], cellStyles.lineColor[2]);
+    doc.setLineWidth(cellStyles.lineWidth);
+    doc.rect(x, y, tableWidth, tableHeight, 'S');
+    doc.setFontSize(cellStyles.fontSize);
+    doc.text(x + 5, y + 15, doc.splitTextToSize(text, tableWidth - 10));
+    x += tableWidth;
+  }
+
+  y += tableHeight;
+}
+
+  doc.save('report.pdf');
+}
+
+
+
+
+
+
+
+  // generateReportButton.addEventListener('click', function () {
+  //   var doc = new jsPDF();
+  //   var rowCount = tableRows.length;
+  //   var colCount = tableRows[0].cells.length;
+  //   var tableData = [];
+  //   for (var i = 1; i < rowCount; i++) {
+  //     var rowData = [];
+  //     for (var j = 0; j < colCount; j++) {
+  //       rowData.push(tableRows[i].cells[j].textContent);
+  //     }
+  //     tableData.push(rowData);
+  //   }
+  //   doc.autoTable({
+  //     head: [['ID', 'Name', 'Uploaded Image Picture', 'Resultant Image Picture', 'Date/Time']],
+  //     body: tableData,
+  //   });
+  //   doc.save('report.pdf');
+  //   alert("Report has been saved.");
+
+
+  // });
+
+  /*function generatePDF() {
+      const doc = new jsPDF();
+      const table = document.getElementById('report-table');
+      const columns = ['ID', 'Name', 'Uploaded Image Picture', 'Resultant Image Picture', 'MitCount', 'Img Type', 'Diagnostics', 'Date/Time'];
+      const rows = [];
+
+      for (let i = 1; i < table.rows.length; i++) {
+        const row = table.rows[i];
+        const rowData = [];
+        for (let j = 0; j < row.cells.length; j++) {
+          const cell = row.cells[j];
+          rowData.push(cell.textContent.trim());
+        }
+        rows.push(rowData);
+      }
+
+      doc.autoTable({
+        head: [columns],
+        body: rows,
+      });
+
+      doc.save('report.pdf');
+      alert('Report has been saved.');
+    }
+
+*/
+
+  console.log(generateReportButton);
+generateReportButton.addEventListener('click', function () {
+  var doc = new jsPDF();
+    var rowCount = tableRows.length;
+    var colCount = tableRows[0].cells.length;
+    var tableData = [];
+    for (var i = 1; i < rowCount; i++) {
+      var rowData = [];
+      for (var j = 0; j < colCount; j++) {
+        rowData.push(tableRows[i].cells[j].textContent);
+      }
+      tableData.push(rowData);
+    }
+    doc.autoTable({
+      head: [['ID', 'Name', 'Uploaded Image Picture', 'Resultant Image Picture', 'Date/Time']],
+      
+      body: tableData,
+    });
+    doc.save('report.pdf');
+    alert("Report has been saved.");
+});
+
+
+  searchInput.addEventListener('keyup', function () {
+    var searchQuery = this.value.toLowerCase();
+    for (var i = 1; i < tableRows.length; i++) {
+      var row = tableRows[i];
+      var rowData = row.textContent.toLowerCase();
+      if (rowData.indexOf(searchQuery) === -1) {
+        row.style.display = 'none';
+      } else {
+        row.style.display = '';
+      }
+    }
+  });
+</script>
+
+
+<!-- <button id="generate-report-button">Generate Report</button> -->
+
+
+
+
+
+
+</body>
+
+
+
+
+
+</html>

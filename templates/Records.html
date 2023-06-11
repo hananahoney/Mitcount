@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Records</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+ nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #e10176;
+        padding: 2px;
+      }
+      
+      .logo a {
+        
+        color: white;
+        text-decoration: none;
+      }
+      .logo h4{
+        margin-left: 40px;
+        font-size: 28px;
+      }
+      .menu {
+        list-style: none;
+        display: flex;
+        margin-top: 10px;
+      }
+      
+      .menu li {
+        margin-right: 20px;
+      }
+      
+      .menu li a {
+        text-decoration: none;
+        color: white;
+        font-weight: 400;
+        font-size: 18px;
+      }
+      
+      .menu li a:hover {
+        color: #e10176;
+        background-color: white;
+        border-radius: 5px;
+        padding: 8px 10px;
+        text-decoration: none;
+
+      }
+      table {
+			border-collapse: collapse;
+			width: 100%;
+		}
+		th, td {
+			text-align: left;
+			padding: 8px;
+		}
+		tr:nth-child(even) {
+			background-color: #f2f2f2;
+		}
+		th {
+			background-color: #4CAF50;
+			color: white;
+		}
+		img {
+			max-width: 200px;
+			max-height: 200px;
+			object-fit: cover;
+		}
+
+
+    .selected-image {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    max-width: 90%;
+    max-height: 90%;
+    overflow: auto;
+  }
+  .blur {
+    filter: blur(1px);
+  }
+
+  #search {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 30px;
+  width: 1200px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  background-color: #f2f2f2;
+}
+
+/* Style the placeholder text */
+#search::placeholder {
+  color: #999;
+}
+
+/* Style the search input on focus */
+#search:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  border: 1px solid rgba(81, 203, 238, 1);
+}
+
+
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+          <a href="#"><h4>MitCount</h4></a>
+        </div>
+        
+    <ul class="menu">
+        <li><a href="{{ url_for('Home') }}">Home</a></li>
+        <li><a href="#">Records</a></li>
+        <li><a href="#">About</a></li>
+        
+        <li><a href="{{url_for('login')}}">Logout</a></li>
+      </ul>
+    </nav>
+
+    <input type="text" id="search" placeholder="Search...">
+
+    <table>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<!-- <th>Results</th> -->
+				<th>Uploaded Image Picture</th>
+				<th>Resultant Image Picture</th>
+        <th>MitCount</th> 
+        <th>Img Type</th>
+        <th>Diagnostics</th>
+        <th>Date/Time</th>
+        <th>details</th>
+			</tr>
+		</thead>
+		<tbody>
+      {% for value in data %}
+      <tr>
+				<td class="personid">{{value[1]}}</td>
+				<td>{{value[2]}}</td>
+				<!-- <td>80%</td> -->
+				<td><img src="static/upload_images/{{value[3]}}" alt="image"/></td>
+				<td><img src="static/results_images/{{value[4]}}" alt="image"/></td>
+        
+        <td>{{value[5]}}</td>
+        <td>{{value[6]}}</td>
+        <td>{{value[7]}}</td>
+
+        <td>{{value[8]}}</td>
+        <td>
+          <a href="{{ url_for('PatientRecord', personid=value[1]) }}" id="viewdetails" onclick="tablepersonid()">View Details</a>
+        </td>
+			</tr>
+      
+      {% endfor %}
+    </tbody>
+	</table>
+  <script>
+    var searchInput = document.getElementById('search');
+    var tableRows = document.getElementsByTagName('tr');
+    searchInput.addEventListener('keyup', function() {
+        var searchQuery = this.value.toLowerCase();
+        for (var i = 1; i < tableRows.length; i++) {
+            var row = tableRows[i];
+            var rowData = row.textContent.toLowerCase();
+            if (rowData.indexOf(searchQuery) === -1) {
+                row.style.display = 'none';
+            } else {
+                row.style.display = '';
+            }
+        }
+    });
+    function tablepersonid() 
+    {
+        var personid = event.target.parentNode.parentNode.querySelector('.personid').textContent;
+        console.log(personid);
+          // Send the personid value to the Flask server
+          fetch('/details', {
+            method: 'POST',
+            body: JSON.stringify({'personid': personid}),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function(response) {
+            console.log(response);
+            
+        });
+    }
+</script>
+  
+
+</body>
+</html>
