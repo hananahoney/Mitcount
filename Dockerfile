@@ -7,6 +7,7 @@ WORKDIR /app
 # COPY requirements.txt requirements.txt
 COPY require.txt requirements.txt
 RUN pip install --upgrade pip
+RUN apt-get update && apt-get install -y default-libmysqlclient-dev
 RUN pip3 install -r requirements.txt
 
 COPY . .
