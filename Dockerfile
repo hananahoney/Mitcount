@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
     libgl1-mesa-glx \
     libmysqlclient-dev \
     python3-dev \
+    libgl1-mesa-dev \
  && rm -rf /var/lib/apt/lists/*
 
 # Upgrade pip
