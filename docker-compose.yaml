@@ -1,0 +1,19 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: mbilal
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysqldb/db.sql:/db.sql
+
+  mqtt-producer:
+     build: .
+     environment:
+      mysql_url: mysql
+     depends_on:
+      - mysql
